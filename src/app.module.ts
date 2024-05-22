@@ -42,7 +42,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
       password: process.env.DATABASE_PASSWORD,
       entities: [join(__dirname, '**/*entity.{ts,js}')],
       database: process.env.DATABASE_NAME,
-      synchronize: true,
+      synchronize: false,
       namingStrategy: new SnakeNamingStrategy(),
     }),
     ClientesModule,
