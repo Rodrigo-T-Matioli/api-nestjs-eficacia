@@ -21,6 +21,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
         error: exception.name,
       });
     }
-    response.status(exception.getStatus()).send(exception);
+    if (typeof exception.getStatus === 'function') {
+      response.status(exception.getStatus()).send(exception);
+    } else {
+      response.status(500).send({
+        statusCode: 500,
+        message: 'Erro interno do servidor',
+        error: 'InternalServerErrorException',
+      });
+    }
   }
 }
