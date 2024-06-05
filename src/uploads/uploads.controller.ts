@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { diskStorage, memoryStorage } from 'multer';
 // import { extname } from 'path';
 import { UploadsService } from './uploads.service';
 
@@ -18,6 +18,18 @@ import { join } from 'path';
 @Controller('uploads')
 export class UploadsController {
   constructor(private readonly uploadsService: UploadsService) {}
+
+  @Post('supabase')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: memoryStorage(), // Armazenar o arquivo em memória
+    }),
+  )
+  async upLoadFileSupaBase(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    const result = await this.uploadsService.upload(file);
+    return result;
+  }
 
   @Get(':patch')
   getFile(@Param('patch') patch: string): StreamableFile {
