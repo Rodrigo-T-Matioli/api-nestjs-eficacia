@@ -26,6 +26,23 @@ export class UploadsService {
     return data;
   }
 
+  async getUpload(fullPath: string) {
+    const supaBaseURL = 'https://fcxatoalzgefilxbdrlp.supabase.co';
+    const supaBaseKEY =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjeGF0b2FsemdlZmlseGJkcmxwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxNzM4MTExMiwiZXhwIjoyMDMyOTU3MTEyfQ.sUZa4WlzqcD982tPCaqTWpAcyxaxMi834i5Y0A-xCUY';
+    const supaBase = createClient(supaBaseURL, supaBaseKEY, {
+      auth: {
+        persistSession: false,
+      },
+    });
+
+    const { data } = await supaBase.storage
+      .from('eficacia')
+      .createSignedUrl(fullPath, 3600);
+
+    return data.signedUrl;
+  }
+
   create(createUploadDto: CreateUploadDto) {
     return 'This action adds a new upload' + createUploadDto;
   }

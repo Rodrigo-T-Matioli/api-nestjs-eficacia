@@ -3,6 +3,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   StreamableFile,
   UploadedFile,
   UseInterceptors,
@@ -28,6 +29,12 @@ export class UploadsController {
   async upLoadFileSupaBase(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
     const result = await this.uploadsService.upload(file);
+    return result;
+  }
+
+  @Get('supa/base')
+  async getFileSupaBase(@Query('fullPath') fullPath: string) {
+    const result = await this.uploadsService.getUpload(fullPath);
     return result;
   }
 
