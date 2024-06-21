@@ -1,4 +1,4 @@
-import { Expose, Transform } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import {
   IsNotEmpty,
   IsNumber,
@@ -15,13 +15,11 @@ export class CreateArquivoDto {
   @IsNotEmpty({ message: 'Nome não pode ser vazio' })
   @IsString({ message: 'O nome do arquivo deve ser uma string' })
   @Length(3, 150, { message: 'O nome precisa ter entre 3 a 150 caracteres' })
-  @Transform(({ value }) => value.toLowerCase())
   nome: string;
   @IsNotEmpty({ message: 'Arquivo não pode ser vazio' })
   @IsString({ message: 'O arquivo deve ser uma string' })
   @Length(3, 150, { message: 'O arquivo precisa ter entre 3 a 150 caracteres' })
   @Expose({ name: 'arquivo_completo' })
-  @Transform(({ value }) => value.toLowerCase())
   arquivo: string;
   @IsNotEmpty({ message: 'Nome não pode ser vazio' })
   @IsNumber({}, { message: 'Cliente deve receber um número' })

@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class CreateClienteDto {
@@ -7,6 +6,5 @@ export class CreateClienteDto {
   @Length(3, 250, {
     message: 'A razão social precisa ter entre 3 a 250 caracteres',
   })
-  @Transform(({ value }) => value.toLowerCase())
   razaoSocial: string;
 }
